@@ -197,6 +197,53 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+class PresentationPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Bienvenue !',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 20),
+          Text(
+            'Cette application vous permet de découvrir et de gérer vos médias préférés.',
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 20),
+          Image.network(
+            'assets/imgs/med.jpg' // Ajoutez l'image de présentation
+          ),
+          ParcourirButton(),
+        ],
+      ),
+    );
+  }
+}
+
+class ParcourirButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MediaPage(),
+          ),
+        );
+      },
+      child: Text('Parcourir'),
+    );
+  }
+}
+
 class _MyHomePageState extends State<MyHomePage> {
   var selectedIndex = 0;
 
@@ -205,7 +252,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = GeneratorPage();
+        page = PresentationPage(); // Utilisez PresentationPage à la place de GeneratorPage
         break;
       case 1:
         page = FavoritesPage();
@@ -259,26 +306,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class GeneratorPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(height: 10),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(width: 10),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class BigCard extends StatelessWidget {
   const BigCard({
