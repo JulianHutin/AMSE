@@ -320,23 +320,16 @@ class FavoritesPage extends StatelessWidget {
       );
     }
 
-    return ListView(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Text('You have '
-              '${appState.favorites.length} favorites:'),
-        ),
-        for (var pair in appState.favorites)
-          ListView(
-
-            MediaListButton(pair),
-            MediaButton('Series',series),
-            MediaButton('Musique', musique),
-            MediaButton('Livre', livre),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Favorites"),
+      ),
+      body: ListView(
+        children: [
+          for (var i=0; i<appState.favorites.length; i++)
+            MediaListButton(appState.favorites,i),
         ],
-          ),
-      ],
+      ),
     );
   }
 }
