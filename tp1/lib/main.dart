@@ -1,29 +1,8 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'dart:convert';
-import 'dart:io';
 
 void main() {
-   final jsonString = File('chemin_vers_votre_fichier.json').readAsStringSync();
-
-  // Parser le contenu JSON
-  final jsonData = json.decode(jsonString);
-
-  // Extraire les données des films du JSON
-  final List<dynamic> filmsData = jsonData['films'];
-
-  // Créer une liste de MediaModel à partir des données des films
-  final List<MediaModel> films = filmsData.map((film) {
-    return MediaModel(
-      name: film['titre'],
-      autor: film['auteur'],
-      date: film['date_sortie'],
-      description: film['synopsis'],
-      imgUrl: '', // Vous devez définir l'URL de l'image correcte ici
-    );
-  }).toList();
-  
   runApp(MyApp());
 }
 
@@ -40,8 +19,145 @@ class MediaModel {
 }
 
 const film = [
-  MediaModel(name: 'OSS117', autor: 'autor', date: 'date', description: 'description', imgUrl: 'assets/imgs/OSS.jpg'),
+  MediaModel(
+    name: 'Inception',
+    autor: 'Christopher Nolan',
+    date: '2010',
+    description:
+        'Inception is a 2010 science fiction action film written and directed by Christopher Nolan.',
+    imgUrl: 'assets/imgs/inception.jpg',
+  ),
+  MediaModel(
+    name: 'The Shawshank Redemption',
+    autor: 'Frank Darabont',
+    date: '1994',
+    description:
+        'The Shawshank Redemption is a 1994 American drama film written and directed by Frank Darabont.',
+    imgUrl: 'assets/imgs/shawshank_redemption.jpg',
+  ),
+  MediaModel(
+    name: 'The Godfather',
+    autor: 'Francis Ford Coppola',
+    date: '1972',
+    description:
+        'The Godfather is a 1972 American crime film directed by Francis Ford Coppola.',
+    imgUrl: 'assets/imgs/godfather.jpg',
+  ),
+  MediaModel(
+    name: 'Pulp Fiction',
+    autor: 'Quentin Tarantino',
+    date: '1994',
+    description:
+        'Pulp Fiction is a 1994 American neo-noir black comedy crime film written and directed by Quentin Tarantino.',
+    imgUrl: 'assets/imgs/pulp_fiction.jpg',
+  ),
 ];
+
+const series = [
+  MediaModel(
+    name: 'Breaking Bad',
+    autor: 'Vince Gilligan',
+    date: '2008-2013',
+    description:
+        'Breaking Bad is an American neo-Western crime drama television series created and produced by Vince Gilligan.',
+    imgUrl: 'assets/imgs/breaking_bad.jpg',
+  ),
+  MediaModel(
+    name: 'Game of Thrones',
+    autor: 'David Benioff, D. B. Weiss',
+    date: '2011-2019',
+    description:
+        'Game of Thrones is an American fantasy drama television series created by David Benioff and D. B. Weiss.',
+    imgUrl: 'assets/imgs/game_of_thrones.jpg',
+  ),
+  MediaModel(
+    name: 'Stranger Things',
+    autor: 'The Duffer Brothers',
+    date: '2016-present',
+    description:
+        'Stranger Things is an American science fiction horror mystery-thriller streaming television series created by the Duffer Brothers.',
+    imgUrl: 'assets/imgs/stranger_things.jpg',
+  ),
+  MediaModel(
+    name: 'Friends',
+    autor: 'David Crane, Marta Kauffman',
+    date: '1994-2004',
+    description:
+        'Friends is an American television sitcom created by David Crane and Marta Kauffman.',
+    imgUrl: 'assets/imgs/friends.jpg',
+  ),
+];
+
+const musique = [
+  MediaModel(
+    name: 'Thriller',
+    autor: 'Michael Jackson',
+    date: '1982',
+    description:
+        'Thriller is the sixth studio album by American singer Michael Jackson, released on November 30, 1982.',
+    imgUrl: 'assets/imgs/thriller.jpg',
+  ),
+  MediaModel(
+    name: 'Abbey Road',
+    autor: 'The Beatles',
+    date: '1969',
+    description:
+        'Abbey Road is the eleventh studio album by the English rock band the Beatles, released on 26 September 1969.',
+    imgUrl: 'assets/imgs/abbey_road.jpg',
+  ),
+  MediaModel(
+    name: 'The Dark Side of the Moon',
+    autor: 'Pink Floyd',
+    date: '1973',
+    description:
+        'The Dark Side of the Moon is the eighth studio album by the English rock band Pink Floyd.',
+    imgUrl: 'assets/imgs/dark_side_of_the_moon.jpg',
+  ),
+  MediaModel(
+    name: 'Back in Black',
+    autor: 'AC/DC',
+    date: '1980',
+    description:
+        'Back in Black is the seventh studio album by Australian rock band AC/DC.',
+    imgUrl: 'assets/imgs/back_in_black.jpg',
+  ),
+];
+
+const livre = [
+  MediaModel(
+    name: '1984',
+    autor: 'George Orwell',
+    date: '1949',
+    description:
+        '1984 is a dystopian social science fiction novel by English novelist George Orwell.',
+    imgUrl: 'assets/imgs/1984.jpg',
+  ),
+  MediaModel(
+    name: 'To Kill a Mockingbird',
+    autor: 'Harper Lee',
+    date: '1960',
+    description:
+        'To Kill a Mockingbird is a novel by Harper Lee published in 1960.',
+    imgUrl: 'assets/imgs/to_kill_a_mockingbird.jpg',
+  ),
+  MediaModel(
+    name: 'The Great Gatsby',
+    autor: 'F. Scott Fitzgerald',
+    date: '1925',
+    description:
+        'The Great Gatsby is a 1925 novel by American writer F. Scott Fitzgerald.',
+    imgUrl: 'assets/imgs/great_gatsby.jpg',
+  ),
+  MediaModel(
+    name: 'The Catcher in the Rye',
+    autor: 'J. D. Salinger',
+    date: '1951',
+    description:
+        'The Catcher in the Rye is a novel by J. D. Salinger, partially published in serial form in 1945–1946 and as a novel in 1951.',
+    imgUrl: 'assets/imgs/catcher_in_the_rye.jpg',
+  ),
+];
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -260,10 +376,10 @@ class MediaPage extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.all(16.0),
         children: [
-          MediaButton('Films'),
-          MediaButton('Series'),
-          MediaButton('Musique'),
-          MediaButton('Livre'),
+          MediaButton('Films',film),
+          MediaButton('Series',series),
+          MediaButton('Musique', musique),
+          MediaButton('Livre', livre),
         ],
       ),
     );
@@ -272,8 +388,9 @@ class MediaPage extends StatelessWidget {
 
 class MediaButton extends StatelessWidget {
   final String media;
+  final List<MediaModel> mediaList;
 
-  MediaButton(this.media);
+  MediaButton(this.media, this.mediaList);
 
   @override
   Widget build(BuildContext context) {
@@ -282,7 +399,7 @@ class MediaButton extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => MediaList(media),
+            builder: (context) => MediaList(media,mediaList),
           ),
         );
       },
@@ -294,8 +411,9 @@ class MediaButton extends StatelessWidget {
 
 class MediaList extends StatelessWidget {
   final String mediatype;
+  final List<MediaModel> mediaList;
 
-  MediaList(this.mediatype);
+  MediaList(this.mediatype, this.mediaList);
 
   @override
   Widget build(BuildContext context) {
@@ -305,8 +423,8 @@ class MediaList extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          for (var i=0; i<film.length; i++)
-            MediaListButton(film.elementAt(i).name,i),
+          for (var i=0; i<mediaList.length; i++)
+            MediaListButton(mediaList[i].name,i),
         ],
       ),
     );
