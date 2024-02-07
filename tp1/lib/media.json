@@ -1,0 +1,203 @@
+{
+    "films": [
+      {
+        "titre": "Inception",
+        "auteur": "Christopher Nolan",
+        "date_sortie": "2010",
+        "synopsis": "Dom Cobb est un voleur expérimenté, le meilleur dans l'art dangereux de l'extraction, voler les secrets les plus intimes enfouis au plus profond du subconscient durant une phase de rêve, lorsque l'esprit est le plus vulnérable."
+      },
+      {
+        "titre": "La La Land",
+        "auteur": "Damien Chazelle",
+        "date_sortie": "2016",
+        "synopsis": "Au cœur de Los Angeles, une pianiste de jazz et une actrice tombent amoureux mais doivent concilier leurs ambitions respectives avec leur relation."
+      },
+      {
+        "titre": "Interstellar",
+        "auteur": "Christopher Nolan",
+        "date_sortie": "2014",
+        "synopsis": "Un groupe d'explorateurs utilise un trou de ver nouvellement découvert pour dépasser les limites des voyages spatiaux humains et conquérir les vastes distances d'un voyage interstellaire."
+      },
+      {
+        "titre": "The Godfather",
+        "auteur": "Francis Ford Coppola",
+        "date_sortie": "1972",
+        "synopsis": "Le patriarche d'une dynastie criminelle transfère le contrôle clandestin de son empire à son fils le plus jeune."
+      },
+      {
+        "titre": "Pulp Fiction",
+        "auteur": "Quentin Tarantino",
+        "date_sortie": "1994",
+        "synopsis": "Différentes histoires entrelacées sur la vie, la mort et le pardon dans le monde du crime organisé à Los Angeles."
+      },
+      {
+        "titre": "The Shawshank Redemption",
+        "auteur": "Frank Darabont",
+        "date_sortie": "1994",
+        "synopsis": "Deux hommes emprisonnés lient une amitié profonde et trouvent la rédemption au cours de décennies d'adversité et d'injustice."
+      },
+      {
+        "titre": "The Dark Knight",
+        "auteur": "Christopher Nolan",
+        "date_sortie": "2008",
+        "synopsis": "L'homme chauve-souris doit faire face à un nouvel ennemi diabolique, Le Joker, qui cherche à instaurer l'anarchie à Gotham."
+      },
+      {
+        "titre": "Forrest Gump",
+        "auteur": "Robert Zemeckis",
+        "date_sortie": "1994",
+        "synopsis": "Forrest Gump, un homme simple d'esprit, se retrouve au centre de certains des moments les plus marquants de l'histoire américaine."
+      }
+    ],
+    "musiques": [
+      {
+        "titre": "Thriller",
+        "auteur": "Michael Jackson",
+        "date_sortie": "1982",
+        "synopsis": "Thriller est le sixième album studio de Michael Jackson. Il est sorti le 30 novembre 1982 chez Epic Records."
+      },
+      {
+        "titre": "21",
+        "auteur": "Adele",
+        "date_sortie": "2011",
+        "synopsis": "21 est le deuxième album studio d'Adele, sorti le 24 janvier 2011."
+      },
+      {
+        "titre": "Abbey Road",
+        "auteur": "The Beatles",
+        "date_sortie": "1969",
+        "synopsis": "Abbey Road est le onzième album studio des Beatles, sorti le 26 septembre 1969."
+      },
+      {
+        "titre": "Back in Black",
+        "auteur": "AC/DC",
+        "date_sortie": "1980",
+        "synopsis": "Back in Black est le septième album studio du groupe AC/DC, sorti le 25 juillet 1980."
+      },
+      {
+        "titre": "The Wall",
+        "auteur": "Pink Floyd",
+        "date_sortie": "1979",
+        "synopsis": "The Wall est le onzième album studio du groupe de rock progressif britannique Pink Floyd, sorti le 30 novembre 1979."
+      },
+      {
+        "titre": "Thriller",
+        "auteur": "Michael Jackson",
+        "date_sortie": "1982",
+        "synopsis": "Thriller est le sixième album studio de Michael Jackson. Il est sorti le 30 novembre 1982 chez Epic Records."
+      },
+      {
+        "titre": "Nevermind",
+        "auteur": "Nirvana",
+        "date_sortie": "1991",
+        "synopsis": "Nevermind est le deuxième album studio du groupe de rock américain Nirvana, sorti le 24 septembre 1991."
+      },
+      {
+        "titre": "The Eminem Show",
+        "auteur": "Eminem",
+        "date_sortie": "2002",
+        "synopsis": "The Eminem Show est le quatrième album studio du rappeur américain Eminem, sorti le 26 mai 2002."
+      }
+    ],
+    "livres": [
+      {
+        "titre": "Harry Potter à l'école des sorciers",
+        "auteur": "J.K. Rowling",
+        "date_sortie": "1997",
+        "synopsis": "Harry Potter, un jeune orphelin, découvre qu'il est un sorcier et qu'il a été accepté à l'école de sorcellerie Poudlard où il va vivre de nombreuses aventures."
+      },
+      {
+        "titre": "Le Petit Prince",
+        "auteur": "Antoine de Saint-Exupéry",
+        "date_sortie": "1943",
+        "synopsis": "Le Petit Prince est une œuvre de littérature pour la jeunesse écrite par Antoine de Saint-Exupéry. Publié en 1943 à New York."
+      },
+      {
+        "titre": "To Kill a Mockingbird",
+        "auteur": "Harper Lee",
+        "date_sortie": "1960",
+        "synopsis": "To Kill a Mockingbird est un roman de l'écrivain américaine Harper Lee. Publié en 1960, il remporte le prix Pulitzer de la fiction l'année suivante."
+      },
+      {
+        "titre": "1984",
+        "auteur": "George Orwell",
+        "date_sortie": "1949",
+        "synopsis": "1984 est un roman d'anticipation de George Orwell paru en 1949. Il décrit une Grande-Bretagne dystopique dans un futur proche."
+      },
+      {
+        "titre": "The Catcher in the Rye",
+        "auteur": "J.D. Salinger",
+        "date_sortie": "1951",
+        "synopsis": "The Catcher in the Rye est un roman de l'écrivain américain J.D. Salinger, publié pour la première fois en 1951."
+      },
+      {
+        "titre": "The Great Gatsby",
+        "auteur": "F. Scott Fitzgerald",
+        "date_sortie": "1925",
+        "synopsis": "The Great Gatsby est un roman de l'écrivain américain F. Scott Fitzgerald, publié pour la première fois en 1925."
+      },
+      {
+        "titre": "The Hobbit",
+        "auteur": "J.R.R. Tolkien",
+        "date_sortie": "1937",
+        "synopsis": "The Hobbit est un roman de fantasy de l'écrivain britannique J.R.R. Tolkien, publié pour la première fois en 1937."
+      },
+      {
+        "titre": "The Alchemist",
+        "auteur": "Paulo Coelho",
+        "date_sortie": "1988",
+        "synopsis": "The Alchemist est un roman brésilien de l'écrivain Paulo Coelho, publié en 1988. Il a été traduit dans de nombreuses langues et est devenu un best-seller international."
+      }
+    ],
+    "series": [
+      {
+        "titre": "Breaking Bad",
+        "auteur": "Vince Gilligan",
+        "date_sortie": "2008",
+        "synopsis": "Un professeur de chimie atteint d'un cancer se lance dans la fabrication et la vente de méthamphétamine pour assurer l'avenir financier de sa famille."
+      },
+      {
+        "titre": "Game of Thrones",
+        "auteur": "David Benioff, D.B. Weiss",
+        "date_sortie": "2011",
+        "synopsis": "Dans le royaume fictif de Westeros, plusieurs familles nobles se disputent le trône de fer."
+      },
+      {
+        "titre": "Friends",
+        "auteur": "David Crane, Marta Kauffman",
+        "date_sortie": "1994",
+        "synopsis": "Les aventures drôles et mouvementées de six amis vivant à New York."
+      },
+      {
+        "titre": "Stranger Things",
+        "auteur": "The Duffer Brothers",
+        "date_sortie": "2016",
+        "synopsis": "Une série de science-fiction se déroulant dans les années 1980, mettant en scène un groupe d'enfants confrontés à des événements surnaturels dans leur petite ville."
+      },
+      {
+        "titre": "Breaking Bad",
+        "auteur": "Vince Gilligan",
+        "date_sortie": "2008",
+        "synopsis": "Un professeur de chimie atteint d'un cancer se lance dans la fabrication et la vente de méthamphétamine pour assurer l'avenir financier de sa famille."
+      },
+      {
+        "titre": "Game of Thrones",
+        "auteur": "David Benioff, D.B. Weiss",
+        "date_sortie": "2011",
+        "synopsis": "Dans le royaume fictif de Westeros, plusieurs familles nobles se disputent le trône de fer."
+      },
+      {
+        "titre": "Friends",
+        "auteur": "David Crane, Marta Kauffman",
+        "date_sortie": "1994",
+        "synopsis": "Les aventures drôles et mouvementées de six amis vivant à New York."
+      },
+      {
+        "titre": "Stranger Things",
+        "auteur": "The Duffer Brothers",
+        "date_sortie": "2016",
+        "synopsis": "Une série de science-fiction se déroulant dans les années 1980, mettant en scène un groupe d'enfants confrontés à des événements surnaturels dans leur petite ville."
+      }
+    ]
+  }
+  
