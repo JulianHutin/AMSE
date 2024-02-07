@@ -179,16 +179,10 @@ class MyApp extends StatelessWidget {
 }
 
 class MyAppState extends ChangeNotifier {
-  var current = WordPair.random();
 
-  void getNext() {
-    current = WordPair.random();
-    notifyListeners();
-  }
+  final List<MediaModel> favorites = [];
 
-  var favorites = <WordPair>[];
-
-  void toggleFavorite() {
+  void addFavorite(current) {
     if (favorites.contains(current)) {
       favorites.remove(current);
     } else {
@@ -268,39 +262,16 @@ class _MyHomePageState extends State<MyHomePage> {
 class GeneratorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    var pair = appState.current;
-
-    IconData icon;
-    if (appState.favorites.contains(pair)) {
-      icon = Icons.favorite;
-    } else {
-      icon = Icons.favorite_border;
-    }
 
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          BigCard(pair: pair),
           SizedBox(height: 10),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ElevatedButton.icon(
-                onPressed: () {
-                  appState.toggleFavorite();
-                },
-                icon: Icon(icon),
-                label: Text('Like'),
-              ),
               SizedBox(width: 10),
-              ElevatedButton(
-                onPressed: () {
-                  appState.getNext();
-                },
-                child: Text('Next'),
-              ),
             ],
           ),
         ],
@@ -357,9 +328,13 @@ class FavoritesPage extends StatelessWidget {
               '${appState.favorites.length} favorites:'),
         ),
         for (var pair in appState.favorites)
-          ListTile(
-            leading: Icon(Icons.movie),
-            title: Text(pair.asLowerCase),
+          ListView(
+
+            MediaListButton(pair),
+            MediaButton('Series',series),
+            MediaButton('Musique', musique),
+            MediaButton('Livre', livre),
+        ],
           ),
       ],
     );
@@ -424,7 +399,7 @@ class MediaList extends StatelessWidget {
       body: ListView(
         children: [
           for (var i=0; i<mediaList.length; i++)
-            MediaListButton(mediaList[i].name,i),
+            MediaListButton(mediaList,i),
         ],
       ),
     );
@@ -432,10 +407,10 @@ class MediaList extends StatelessWidget {
 }
 
 class MediaListButton extends StatelessWidget {
-  final String medianame;
+  final List<MediaModel> mediaList;
   final int indice;
 
-  MediaListButton(this.medianame,this.indice);
+  MediaListButton(this.mediaList,this.indice);
 
   @override
   Widget build(BuildContext context) {
@@ -444,38 +419,51 @@ class MediaListButton extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => MediaDescriptionPage(medianame,indice),
+            builder: (context) => MediaDescriptionPage(mediaList,indice),
           ),
         );
       },
-      child: Text(medianame),
+      child: Text(mediaList[indice].name),
     );
   }
 }
 
 class MediaDescriptionPage extends StatelessWidget {
-  final String medianame;
+  final List<MediaModel> mediaList;
   final int indice;
 
-  MediaDescriptionPage(this.medianame, this.indice);
+  MediaDescriptionPage(this.mediaList, this.indice);
 
   @override
   Widget build(BuildContext context) {
-    // Obtenez le chemin d'accès de l'image à partir du modèle MediaModel
+    var appState = context.watch<MyAppState>();
+    IconData icon;
+    if (appState.favorites.contains(mediaList[indice])) {
+      icon = Icons.favorite;
+    } else {
+      icon = Icons.favorite_border;
+    }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(medianame),
+        title: Text(mediaList[indice].name),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Affichez l'image à partir du fichier
-            Image.network(film.elementAt(indice).imgUrl),
-            Text('Date : ${film.elementAt(indice).date}'),
-            Text('Auteur : ${film.elementAt(indice).autor}'),
-            Text('Description : ${film.elementAt(indice).description}'),
+            //Image.network(film.elementAt(indice).imgUrl),
+            Text('Date : ${mediaList[indice].date}'),
+            Text('Auteur : ${mediaList[indice].autor}'),
+            Text('Description : ${mediaList[indice].description}'),
+            ElevatedButton.icon(
+                onPressed: () {
+                  appState.addFavorite(mediaList[indice]);
+                },
+                icon: Icon(icon),
+                label: Text('Like'),
+              ),
           ],
         ),
       ),
