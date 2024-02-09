@@ -25,7 +25,7 @@ const film = [
     date: '2010',
     description:
         'Inception is a 2010 science fiction action film written and directed by Christopher Nolan.',
-    imgUrl: 'assets/imgs/inception.jpg',
+    imgUrl: 'assets/imgs/inception.png',
   ),
   MediaModel(
     name: 'The Shawshank Redemption',
@@ -33,7 +33,7 @@ const film = [
     date: '1994',
     description:
         'The Shawshank Redemption is a 1994 American drama film written and directed by Frank Darabont.',
-    imgUrl: 'assets/imgs/shawshank_redemption.jpg',
+    imgUrl: 'assets/imgs/shawshank.jpg',
   ),
   MediaModel(
     name: 'The Godfather',
@@ -103,7 +103,7 @@ const musique = [
     date: '1969',
     description:
         'Abbey Road is the eleventh studio album by the English rock band the Beatles, released on 26 September 1969.',
-    imgUrl: 'assets/imgs/abbey_road.jpg',
+    imgUrl: 'assets/imgs/abbey_road.png',
   ),
   MediaModel(
     name: 'The Dark Side of the Moon',
@@ -111,7 +111,7 @@ const musique = [
     date: '1973',
     description:
         'The Dark Side of the Moon is the eighth studio album by the English rock band Pink Floyd.',
-    imgUrl: 'assets/imgs/dark_side_of_the_moon.jpg',
+    imgUrl: 'assets/imgs/dark_side_of_the_moon.png',
   ),
   MediaModel(
     name: 'Back in Black',
@@ -146,7 +146,7 @@ const livre = [
     date: '1925',
     description:
         'The Great Gatsby is a 1925 novel by American writer F. Scott Fitzgerald.',
-    imgUrl: 'assets/imgs/great_gatsby.jpg',
+    imgUrl: 'assets/imgs/the_great_gatsby.jpg',
   ),
   MediaModel(
     name: 'The Catcher in the Rye',
@@ -271,7 +271,7 @@ class PresentationPage extends StatelessWidget {
           ),
           SizedBox(height: 20),
           Image.network(
-            'assets/imgs/med.jpg' // Ajoutez l'image de présentation
+            'assets/imgs/med.png' // Ajoutez l'image de présentation
           ),
           SizedBox(height: 16),
           ParcourirButton(),
@@ -313,6 +313,14 @@ class FavoritesPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Favorites"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () {
+              Navigator.of(context).pushNamed('/');
+            },
+          ),
+        ],
       ),
       body: ListView(
         children: [
@@ -330,23 +338,31 @@ class MediaPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Media'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () {
+              Navigator.of(context).pushNamed('/');
+            },
+          ),
+        ],
       ),
       body: ListView(
         padding: EdgeInsets.all(16.0),
         children: [
-          MediaButton('Films',film),
+          MediaButton('Films', film),
           SizedBox(height: 16),
-          MediaButton('Series',series),
+          MediaButton('Series', series),
           SizedBox(height: 16),
           MediaButton('Musique', musique),
           SizedBox(height: 16),
           MediaButton('Livre', livre),
         ],
-        
       ),
     );
   }
 }
+
 
 class MediaButton extends StatelessWidget {
   final String media;
@@ -382,6 +398,14 @@ class MediaList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(mediatype),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () {
+              Navigator.of(context).pushNamed('/');
+            },
+          ),
+        ],
       ),
       body: ListView(
         children: [
@@ -438,13 +462,21 @@ class MediaDescriptionPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(mediaList[indice].name),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () {
+              Navigator.of(context).pushNamed('/');
+            },
+          ),
+        ],
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Affichez l'image à partir du fichier
-            //Image.network(film.elementAt(indice).imgUrl),
+            Image.network(mediaList[indice].imgUrl),
             Text('Date : ${mediaList[indice].date}'),
             SizedBox(height: 16),
             Text('Auteur : ${mediaList[indice].autor}'),
