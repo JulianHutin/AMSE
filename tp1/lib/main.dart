@@ -172,11 +172,69 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
         ),
-        home: MyHomePage(),
+        home: Scaffold(
+          bottomNavigationBar: const MyBottomNavigationBar(),
+        ),
       ),
     );
   }
 }
+
+class MyBottomNavigationBar extends StatefulWidget {
+  const MyBottomNavigationBar({Key? key}) : super(key: key);
+
+  @override
+  State<MyBottomNavigationBar> createState() => _MyBottomNavigationBarState();
+}
+
+class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
+  var selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    Widget page;
+    switch (selectedIndex) {
+      case 0:
+        page = PresentationPage();
+        break;
+      case 1:
+        page = FavoritesPage();
+        break;
+      case 2 :
+        page = MediaPage();
+        break;
+      default:
+        throw UnimplementedError('no widget for $selectedIndex');
+    }
+
+    return Scaffold(
+      body: page,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: selectedIndex,
+        onTap: (int index) {
+          setState(() {
+            selectedIndex = index;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favorites',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.movie),
+            label: 'Media',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 
 class MyAppState extends ChangeNotifier {
 
@@ -190,11 +248,6 @@ class MyAppState extends ChangeNotifier {
     }
     notifyListeners();
   }
-}
-
-class MyHomePage extends StatefulWidget {
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class PresentationPage extends StatelessWidget {
@@ -220,6 +273,7 @@ class PresentationPage extends StatelessWidget {
           Image.network(
             'assets/imgs/med.jpg' // Ajoutez l'image de présentation
           ),
+          SizedBox(height: 16),
           ParcourirButton(),
         ],
       ),
@@ -244,97 +298,6 @@ class ParcourirButton extends StatelessWidget {
   }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  var selectedIndex = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    Widget page;
-    switch (selectedIndex) {
-      case 0:
-        page = PresentationPage(); // Utilisez PresentationPage à la place de GeneratorPage
-        break;
-      case 1:
-        page = FavoritesPage();
-        break;
-      case 2 :
-        page = MediaPage();
-        break;
-      default:
-        throw UnimplementedError('no widget for $selectedIndex');
-    }
-
-    return LayoutBuilder(builder: (context, constraints) {
-      return Scaffold(
-        body: Row(
-          children: [
-            SafeArea(
-              child: NavigationRail(
-                extended: constraints.maxWidth >= 600,
-                destinations: [
-                  NavigationRailDestination(
-                    icon: Icon(Icons.home),
-                    label: Text('Home'),
-                  ),
-                  NavigationRailDestination(
-                    icon: Icon(Icons.favorite),
-                    label: Text('Favorites'),
-                  ),
-                  NavigationRailDestination(
-                    icon: Icon(Icons.movie),
-                    label: Text('Media'),
-                  ),
-                ],
-                selectedIndex: selectedIndex,
-                onDestinationSelected: (value) {
-                  setState(() {
-                    selectedIndex = value;
-                  });
-                },
-              ),
-            ),
-            Expanded(
-              child: Container(
-                color: Theme.of(context).colorScheme.primaryContainer,
-                child: page,
-              ),
-            ),
-          ],
-        ),
-      );
-    });
-  }
-}
-
-
-class BigCard extends StatelessWidget {
-  const BigCard({
-    super.key,
-    required this.pair,
-  });
-
-  final WordPair pair;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final style = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.onPrimary,
-    );
-
-    return Card(
-      color: theme.colorScheme.primary,
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Text(
-          pair.asLowerCase,
-          style: style,
-          semanticsLabel: "${pair.first} ${pair.second}",
-        ),
-      ),
-    );
-  }
-}
 
 class FavoritesPage extends StatelessWidget {
   @override
@@ -372,10 +335,14 @@ class MediaPage extends StatelessWidget {
         padding: EdgeInsets.all(16.0),
         children: [
           MediaButton('Films',film),
+          SizedBox(height: 16),
           MediaButton('Series',series),
+          SizedBox(height: 16),
           MediaButton('Musique', musique),
+          SizedBox(height: 16),
           MediaButton('Livre', livre),
         ],
+        
       ),
     );
   }
@@ -418,8 +385,11 @@ class MediaList extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          for (var i=0; i<mediaList.length; i++)
-            MediaListButton(mediaList,i),
+          for (var i = 0; i < mediaList.length; i++)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0), // Adjust vertical spacing here
+              child: MediaListButton(mediaList, i),
+            ),
         ],
       ),
     );
@@ -430,7 +400,7 @@ class MediaListButton extends StatelessWidget {
   final List<MediaModel> mediaList;
   final int indice;
 
-  MediaListButton(this.mediaList,this.indice);
+  MediaListButton(this.mediaList, this.indice);
 
   @override
   Widget build(BuildContext context) {
@@ -439,7 +409,7 @@ class MediaListButton extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => MediaDescriptionPage(mediaList,indice),
+            builder: (context) => MediaDescriptionPage(mediaList, indice),
           ),
         );
       },
@@ -447,6 +417,7 @@ class MediaListButton extends StatelessWidget {
     );
   }
 }
+
 
 class MediaDescriptionPage extends StatelessWidget {
   final List<MediaModel> mediaList;
@@ -475,8 +446,11 @@ class MediaDescriptionPage extends StatelessWidget {
             // Affichez l'image à partir du fichier
             //Image.network(film.elementAt(indice).imgUrl),
             Text('Date : ${mediaList[indice].date}'),
+            SizedBox(height: 16),
             Text('Auteur : ${mediaList[indice].autor}'),
+            SizedBox(height: 16),
             Text('Description : ${mediaList[indice].description}'),
+            SizedBox(height: 16),
             ElevatedButton.icon(
                 onPressed: () {
                   appState.addFavorite(mediaList[indice]);
