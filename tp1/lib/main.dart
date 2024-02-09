@@ -103,7 +103,7 @@ const musique = [
     date: '1969',
     description:
         'Abbey Road is the eleventh studio album by the English rock band the Beatles, released on 26 September 1969.',
-    imgUrl: 'assets/imgs/abbey_road.png',
+    imgUrl: 'assets/imgs/abey_road.png',
   ),
   MediaModel(
     name: 'The Dark Side of the Moon',
@@ -407,7 +407,9 @@ class MediaList extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           for (var i = 0; i < mediaList.length; i++)
             Padding(
@@ -428,7 +430,7 @@ class MediaListButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return TextButton.icon(
       onPressed: () {
         Navigator.push(
           context,
@@ -437,7 +439,12 @@ class MediaListButton extends StatelessWidget {
           ),
         );
       },
-      child: Text(mediaList[indice].name),
+      icon: SizedBox(
+        width: 50,
+        height: 50,
+        child: Image.network(mediaList[indice].imgUrl),
+      ),
+      label: Text(mediaList[indice].name),
     );
   }
 }
@@ -477,11 +484,11 @@ class MediaDescriptionPage extends StatelessWidget {
           children: [
             // Affichez l'image à partir du fichier
             Image.network(mediaList[indice].imgUrl),
-            Text('Date : ${mediaList[indice].date}'),
+            Text('Date : ${mediaList[indice].date}', style: TextStyle(fontSize: 20)),
             SizedBox(height: 16),
-            Text('Auteur : ${mediaList[indice].autor}'),
+            Text('Auteur : ${mediaList[indice].autor}', style: TextStyle(fontSize: 20)),
             SizedBox(height: 16),
-            Text('Description : ${mediaList[indice].description}'),
+            Text('Description : ${mediaList[indice].description}', style: TextStyle(fontSize: 20)),
             SizedBox(height: 16),
             ElevatedButton.icon(
                 onPressed: () {
