@@ -253,33 +253,54 @@ class MyAppState extends ChangeNotifier {
 class PresentationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Bienvenue !',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+    return Scaffold(
+      backgroundColor: Colors.blueGrey, // Fond coloré
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Bienvenue !',
+              style: TextStyle(
+                fontSize: 36,
+                fontWeight: FontWeight.bold,
+                color: Colors.white, // Couleur du texte
+              ),
             ),
-          ),
-          SizedBox(height: 20),
-          Text(
-            'Cette application vous permet de découvrir et de gérer vos médias préférés.',
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 20),
-          Image.network(
-            'assets/imgs/med.png' // Ajoutez l'image de présentation
-          ),
-          SizedBox(height: 16),
-          ParcourirButton(),
-        ],
+            SizedBox(height: 20),
+            Text(
+              'Cette application vous permet de découvrir et de gérer vos médias préférés.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white, // Couleur du texte
+              ),
+            ),
+            SizedBox(height: 20),
+            Container(
+              width: 150,
+              height: 150,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/imgs/med.png'),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.circular(75), // Pour obtenir un cercle
+                border: Border.all(
+                  color: Colors.white,
+                  width: 3,
+                ),
+              ),
+            ),
+            SizedBox(height: 16),
+            ParcourirButton(),
+          ],
+        ),
       ),
     );
   }
 }
+
 
 class ParcourirButton extends StatelessWidget {
   @override
@@ -302,14 +323,6 @@ class ParcourirButton extends StatelessWidget {
 class FavoritesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-
-    if (appState.favorites.isEmpty) {
-      return Center(
-        child: Text('No favorites yet.'),
-      );
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Favorites"),
@@ -317,20 +330,32 @@ class FavoritesPage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.home),
             onPressed: () {
-              Navigator.of(context).pushNamed('/');
+              Navigator.of(context).popUntil((route) => route.isFirst);
             },
           ),
         ],
       ),
-      body: ListView(
-        children: [
-          for (var i=0; i<appState.favorites.length; i++)
-            MediaListButton(appState.favorites,i),
-        ],
+      body: Consumer<MyAppState>(
+        builder: (context, appState, _) {
+          if (appState.favorites.isEmpty) {
+            return Center(
+              child: Text('No favorites yet.'),
+            );
+          }
+
+          return ListView.builder(
+            itemCount: appState.favorites.length,
+            itemBuilder: (context, index) {
+              return MediaListButton(appState.favorites, index);
+            },
+          );
+        },
       ),
     );
   }
 }
+
+
 
 class MediaPage extends StatelessWidget {
   @override
@@ -342,7 +367,7 @@ class MediaPage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.home),
             onPressed: () {
-              Navigator.of(context).pushNamed('/');
+              Navigator.of(context).popUntil((route) => route.isFirst);
             },
           ),
         ],
@@ -350,18 +375,133 @@ class MediaPage extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.all(16.0),
         children: [
-          MediaButton('Films', film),
+          MediaCategoryCard('Films', film),
           SizedBox(height: 16),
-          MediaButton('Series', series),
+          MediaCategoryCard('Series', series),
           SizedBox(height: 16),
-          MediaButton('Musique', musique),
+          MediaCategoryCard('Musique', musique),
           SizedBox(height: 16),
-          MediaButton('Livre', livre),
+          MediaCategoryCard('Livre', livre),
         ],
       ),
     );
   }
 }
+
+class MediaCategoryCard extends StatelessWidget {
+  final String categoryName;
+  final List<MediaModel> mediaList;
+
+  MediaCategoryCard(this.categoryName, this.mediaList);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MediaList(categoryName, mediaList),
+            ),
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                categoryName,
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 8),
+              GridView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 8.0,
+                  crossAxisSpacing: 8.0,
+                  childAspectRatio: 0.8,
+                ),
+                itemCount: mediaList.length > 4 ? 4 : mediaList.length,
+                itemBuilder: (context, index) {
+                  return MediaCard(mediaList[index]);
+                },
+              ),
+              SizedBox(height: 8),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MediaList(categoryName, mediaList),
+                      ),
+                    );
+                  },
+                  child: Text('Voir tout >'),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class MediaCard extends StatelessWidget {
+  final MediaModel media;
+
+  MediaCard(this.media);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: ClipRRect(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
+              child: Image.network(
+                media.imgUrl,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              media.name,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 
 
 class MediaButton extends StatelessWidget {
@@ -402,7 +542,7 @@ class MediaList extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.home),
             onPressed: () {
-              Navigator.of(context).pushNamed('/');
+              Navigator.of(context).popUntil((route) => route.isFirst);
             },
           ),
         ],
@@ -413,7 +553,7 @@ class MediaList extends StatelessWidget {
         children: [
           for (var i = 0; i < mediaList.length; i++)
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0), // Adjust vertical spacing here
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: MediaListButton(mediaList, i),
             ),
         ],
@@ -421,6 +561,7 @@ class MediaList extends StatelessWidget {
     );
   }
 }
+
 
 class MediaListButton extends StatelessWidget {
   final List<MediaModel> mediaList;
@@ -430,25 +571,41 @@ class MediaListButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton.icon(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MediaDescriptionPage(mediaList, indice),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MediaDescriptionPage(mediaList, indice),
+            ),
+          );
+        },
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.white), // Couleur de fond du bouton
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0), // Forme rectangulaire avec un rayon de 10.0
+              side: BorderSide(color: Colors.red), // Contour rouge
+            ),
           ),
-        );
-      },
-      icon: SizedBox(
-        width: 50,
-        height: 50,
-        child: Image.network(mediaList[indice].imgUrl),
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 50,
+              height: 50,
+              child: Image.network(mediaList[indice].imgUrl),
+            ),
+            SizedBox(width: 10), // Espacement entre l'icône et le texte
+            Text(mediaList[indice].name),
+          ],
+        ),
       ),
-      label: Text(mediaList[indice].name),
     );
   }
 }
-
 
 class MediaDescriptionPage extends StatelessWidget {
   final List<MediaModel> mediaList;
@@ -468,38 +625,80 @@ class MediaDescriptionPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(mediaList[indice].name),
+        title: Text(
+          mediaList[indice].name,
+          style: TextStyle(fontFamily: 'Montserrat'),
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.home),
             onPressed: () {
-              Navigator.of(context).pushNamed('/');
+              Navigator.of(context).popUntil((route) => route.isFirst);
             },
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Affichez l'image à partir du fichier
-            Image.network(mediaList[indice].imgUrl),
-            Text('Date : ${mediaList[indice].date}', style: TextStyle(fontSize: 20)),
-            SizedBox(height: 16),
-            Text('Auteur : ${mediaList[indice].autor}', style: TextStyle(fontSize: 20)),
-            SizedBox(height: 16),
-            Text('Description : ${mediaList[indice].description}', style: TextStyle(fontSize: 20)),
-            SizedBox(height: 16),
-            ElevatedButton.icon(
-                onPressed: () {
-                  appState.addFavorite(mediaList[indice]);
-                },
-                icon: Icon(icon),
-                label: Text('Like'),
-              ),
-          ],
+      body: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+        ),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: Image.network(
+                      mediaList[indice].imgUrl,
+                      width: 200,
+                      height: 200,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'Date : ${mediaList[indice].date}',
+                  style: TextStyle(fontSize: 20, fontFamily: 'Montserrat'),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'Auteur : ${mediaList[indice].autor}',
+                  style: TextStyle(fontSize: 20, fontFamily: 'Montserrat'),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'Description : ${mediaList[indice].description}',
+                  style: TextStyle(fontSize: 20, fontFamily: 'Montserrat'),
+                ),
+                SizedBox(height: 16),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    appState.addFavorite(mediaList[indice]);
+                  },
+                  icon: Icon(icon),
+                  label: Text('Like', style: TextStyle(fontFamily: 'Montserrat')),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 }
+
