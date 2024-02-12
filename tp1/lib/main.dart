@@ -254,7 +254,7 @@ class PresentationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey, // Fond coloré
+      backgroundColor: Colors.blueGrey,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -264,7 +264,7 @@ class PresentationPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 36,
                 fontWeight: FontWeight.bold,
-                color: Colors.white, // Couleur du texte
+                color: Colors.white,
               ),
             ),
             SizedBox(height: 20),
@@ -273,7 +273,7 @@ class PresentationPage extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 20,
-                color: Colors.white, // Couleur du texte
+                color: Colors.white, 
               ),
             ),
             SizedBox(height: 20),
@@ -285,7 +285,7 @@ class PresentationPage extends StatelessWidget {
                   image: AssetImage('assets/imgs/med.png'),
                   fit: BoxFit.cover,
                 ),
-                borderRadius: BorderRadius.circular(75), // Pour obtenir un cercle
+                borderRadius: BorderRadius.circular(75),
                 border: Border.all(
                   color: Colors.white,
                   width: 3,
@@ -502,31 +502,6 @@ class MediaCard extends StatelessWidget {
   }
 }
 
-
-
-class MediaButton extends StatelessWidget {
-  final String media;
-  final List<MediaModel> mediaList;
-
-  MediaButton(this.media, this.mediaList);
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MediaList(media,mediaList),
-          ),
-        );
-      },
-      child: Text(media),
-    );
-  }
-}
-
-
 class MediaList extends StatelessWidget {
   final String mediatype;
   final List<MediaModel> mediaList;
@@ -583,11 +558,11 @@ class MediaListButton extends StatelessWidget {
           );
         },
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.white), // Couleur de fond du bouton
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0), // Forme rectangulaire avec un rayon de 10.0
-              side: BorderSide(color: Colors.red), // Contour rouge
+              borderRadius: BorderRadius.circular(10.0),
+              side: BorderSide(color: Colors.red),
             ),
           ),
         ),
@@ -598,7 +573,7 @@ class MediaListButton extends StatelessWidget {
               height: 50,
               child: Image.network(mediaList[indice].imgUrl),
             ),
-            SizedBox(width: 10), // Espacement entre l'icône et le texte
+            SizedBox(width: 10),
             Text(mediaList[indice].name),
           ],
         ),
