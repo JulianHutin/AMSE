@@ -60,7 +60,7 @@ class _Exercice7ScreenState extends State<Exercice7Screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent, // Changement de couleur
+        backgroundColor: Colors.blueAccent,
         title: const Text("Jeu du Taquin"),
       ),
       body: Column(
@@ -74,12 +74,12 @@ class _Exercice7ScreenState extends State<Exercice7Screen> {
                   style: TextStyle(
                       fontSize: 12.0,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black)), // Changement de couleur
+                      color: Colors.black)),
               Text('Temps : $_timerDisplay',
                   style: TextStyle(
                       fontSize: 12.0,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black)) // Changement de couleur
+                      color: Colors.black))
             ],
           ),
           const SizedBox(height: 5),
@@ -400,7 +400,7 @@ class PuzzleGridState extends State<PuzzleGrid> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Container(
-            color: Colors.blueAccent, // Changement de couleur
+            color: Colors.blueAccent,
             height: 300,
             width: 300,
             padding: const EdgeInsets.all(10),
@@ -435,7 +435,7 @@ class PuzzleGridState extends State<PuzzleGrid> {
                     padding: const EdgeInsets.all(1),
                     child: Container(
                       color: _isAdjacent(index, emptyIndex)
-                          ? Colors.blueAccent // Changement de couleur
+                          ? Colors.blueAccent
                           : Colors.transparent,
                       padding: const EdgeInsets.all(4),
                       child: tiles[index].croppedImageTile(),
@@ -450,7 +450,6 @@ class PuzzleGridState extends State<PuzzleGrid> {
     );
   }
 
-  /// FUNCTIONS FOR SHUFFLE
   shuffleTilesDependingOnDifficulty(int difficulty) {
     if (isPlaying == false) {
       nb_mvt = INITIALISATION;
@@ -466,21 +465,18 @@ class PuzzleGridState extends State<PuzzleGrid> {
     List<int> emptyTileCoordinates = getEmptyTileRowColumn();
     List<int> adjacentIndices = [];
 
-    // Top
     if (emptyTileCoordinates[0] > 0) {
       adjacentIndices.add(emptyIndex - nbColumns);
     }
 
-    // Bottom
     if (emptyTileCoordinates[0] < nbColumns - 1) {
       adjacentIndices.add(emptyIndex + nbColumns);
     }
 
-    // Left
     if (emptyTileCoordinates[1] > 0) {
       adjacentIndices.add(emptyIndex - 1);
     }
-    // Right
+
     if (emptyTileCoordinates[1] < nbColumns - 1) {
       adjacentIndices.add(emptyIndex + 1);
     }
@@ -512,7 +508,6 @@ class PuzzleGridState extends State<PuzzleGrid> {
     return [effectiveRow, effectiveColumn];
   }
 
-  /// FUNCTION FOR SWAPPING TILES
   swapTiles(int index) {
     if (_isAdjacent(index, emptyIndex)) {
       setState(() {
@@ -542,7 +537,6 @@ class PuzzleGridState extends State<PuzzleGrid> {
         (col1 == col2 && (row1 - row2).abs() == 1);
   }
 
-  /// FUNCTIONS FOR GAME FUNCTIONALITY
   onImageChange(String newImageUrl) {
     imageTileService.setImageUrl(newImageUrl);
     updatePuzzle();

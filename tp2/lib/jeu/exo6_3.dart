@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:tp2/package/utils.dart';
 
 // ==============
 // Models
@@ -13,7 +12,8 @@ class Tile {
 
   Tile(this.color, this.label);
   Tile.randomColor() {
-    color = getRandomColor();
+    color = Color((Random().nextDouble() * 0xFFFFFF).toInt())
+      .withOpacity(1.0);
   }
   Tile.setLabel(this.label);
 }

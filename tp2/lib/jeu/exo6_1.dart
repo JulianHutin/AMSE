@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tp2/package/utils.dart';
+import 'dart:math';
 
 // ==============
 // Models
@@ -11,7 +11,8 @@ class Tile {
 
   Tile(this.color, this.label);
   Tile.randomColor() {
-    color = getRandomColor();
+    color = Color((Random().nextDouble() * 0xFFFFFF).toInt())
+      .withOpacity(1.0);
   }
   Tile.setLabel(this.label);
 }
@@ -43,7 +44,8 @@ class Exercice6aScreen extends StatefulWidget {
 
 class _Exercice6aScreenState extends State<Exercice6aScreen> {
   List<Widget> tiles = List<Widget>.generate(
-      2, (index) => TileWidget(tile: Tile(getRandomColor(), index.toString())));
+      2, (index) => TileWidget(tile: Tile(Color((Random().nextDouble() * 0xFFFFFF).toInt())
+      .withOpacity(1.0), index.toString())));
 
   @override
   Widget build(BuildContext context) {

@@ -41,12 +41,10 @@ class ImageTilePlus {
   int _nbColumns = 3;
   String _imageUrl = 'images/exo4.jpg';
 
-  /// CONSTRUCTOR
   ImageTilePlus() {
     _splitImageIntoTiles();
   }
 
-  /// GETTERS AND SETTERS
   List<ImageTile> getTilesList() {
     return _tilesList;
   }
@@ -73,7 +71,6 @@ class ImageTilePlus {
     _splitImageIntoTiles();
   }
 
-  /// GAME RULES
   List<double> _computeIndexes() {
     List<double> result = [];
     double temp = 0;
